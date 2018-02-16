@@ -1,2 +1,2 @@
-# JepordyGame
+# JeopordyGame
 Hopefully.
