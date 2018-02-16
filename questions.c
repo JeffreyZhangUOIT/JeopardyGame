@@ -1,4 +1,3 @@
-
 // Global char* question and answer. Messy but will get the job done.
 #include <stdio.h>
 char* question, answer;
