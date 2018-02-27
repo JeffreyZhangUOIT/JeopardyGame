@@ -24,9 +24,10 @@ void tokenize(char *input, char **tokens);
 
 // Displays the game results for each player, their name and final score, ranked from first to last place
 void show_results(player *players);
+void game_on(char **token, player *players);
 
 
-int main(int argc, char *argv[])
+int main(void)
 {
     // An array of 4 players, may need to be a pointer if you want it set dynamically
     player players[NUM_PLAYERS];
@@ -48,11 +49,11 @@ int main(int argc, char *argv[])
     while (fgets(buffer, BUFFER_LEN, stdin) != NULL)
     {
         // Call functions from the questions and players source files
-        char token[4][BUFFER_LEN] = {{0}};
+        char **token = NULL;
         initialize_game();
         
         // Execute the game until all questions are answered
-        run(token, players);
+        game_on(token, players);
         return 0;
     }
     
@@ -76,7 +77,7 @@ int main(int argc, char *argv[])
     }
     
     // structures how the game is run
-    void run(char **token, player *players){
+    void game_on(char **token, player *players){
         // All questions must be answered to end game
         int num_of_questions_left = sizeof(questions);
         bool correct;
@@ -87,14 +88,14 @@ int main(int argc, char *argv[])
         category = (char *) calloc(BUFFER_LEN, sizeof(char));
 
         while(num_of_questions_left > 0) {
-            for(int i =0; i < sizeof(players); i++) {
+            for(int i = 0; i < 4; i++) {
                 printf("It is %s's turn.\nPlease choose from the provided categories and the available amounts left.\n(Protocol: input category, hit enter, input dollar amount, hit enter):\n", players[i].name);
 
                 display_categories();
 
                 printf("\n\n");
                 scanf("%s", category);
-                scanf("%d", value);
+                scanf("%d", &value);
                 printf("\n");
 
                 if(already_answered(category, value)) {
@@ -115,7 +116,6 @@ int main(int argc, char *argv[])
                     else{
                         printf("Incorrect! You may have forgotten to answer in question format \"What is or Who is\".\n\n");
                     }
-                    remove_question(category, value);
                     num_of_questions_left--;
                     if(num_of_questions_left<=0){
                         break;

@@ -11,18 +11,19 @@
 #include "players.h"
 
 // Returns true if the player name matches one of the existing players
-bool player_exists(player *players, char *name)
-{    
-    for(int i = 0; i <= sizeof(players); i++) {
+bool player_exists(player *players, int num_players, char *name)
+{
+    bool exists;
+    for(int i = 0; i <= num_players; i++) {
         if (players[i].name == name)
         {
-            return true;
-            break;
+            exists = true;
         }
         else {
-            return false;
+            exists = false;
         }
     }
+    return exists;
 }
 
 // Go through the list of players and update the score for the 

@@ -32,8 +32,6 @@ void initialize_game(void)
 	questions[3].answered = false;
 
 
-
-
 	strcpy(questions[4].category, "algorithms");
 	strcpy(questions[4].question, "Stacks are also known as which type of structures");
 	strcpy(questions[4].answer, "LIFO");
@@ -57,8 +55,6 @@ void initialize_game(void)
 	strcpy(questions[7].answer, "AVL tree");
 	questions[7].value = 400;
 	questions[7].answered = false;
-
-
 
 
 	strcpy(questions[8].category, "databases");
@@ -101,7 +97,7 @@ void display_categories(void)
 	}
 	
 	// formatting to make it look nice
-	printf("   %s   |   %s   |   %s   \n", categories[0], categories[1], categories[2]);
+	printf("   programming  |   algorithms  |   databases   \n");
 	printf("  -------------------------------------------------\n");
 	printf("      %s      |     %s     |         %s   \n", val[0], val[1],val[2]);
 	printf("  -------------------------------------------------\n");
@@ -126,33 +122,35 @@ void display_question(char *category, int value)
 // Returns true if reply matches answer for corresponding category and value
 bool valid_answer(char *category, int value, char *answer)
 {
+	bool valid;
 	for (int i = 0; i < 12; i++) {
 		if ((questions[i].category == category) && (questions[i].value == value)) {
 			if (strcmp(questions[i].answer, answer) == 0) {
-				return true;
-				break;
+				valid = true;
 			} 
 			else {
-				return false;
+				valid = false;
 			}
 		}
 	}
+	return valid;
 }
 	       
 // Returns true if the question has already been answered
 bool already_answered(char *category, int value)
 {
+	bool answered;
 	for (int i = 0; i < 12; i++) {
 		if ((questions[i].category == category) && (questions[i].value == value)) {
 			if (questions[i].answered == true) {
-				rturn true;
-				break;
+				answered = true;
 			}
 			else {
-				return false;
+				answered = false;
 			}
 		}
 	}
+	return answered;
 }
 
 // Updates boolean value in questions struct
