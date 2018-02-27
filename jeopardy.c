@@ -23,7 +23,7 @@
 void tokenize(char *input, char **tokens);
 
 // Displays the game results for each player, their name and final score, ranked from first to last place
-void show_results(player *players, int num_players);
+void show_results(player *players);
 
 
 int main(int argc, char *argv[])
@@ -37,7 +37,7 @@ int main(int argc, char *argv[])
     // Display the game introduction and initialize the questions
     // Prompt for players names
     printf("Now begins a game of Jeopardy for 4 players! Please enter your names:\n");
-    for(int i = 0; i < 4; i++){
+    for(int i = 0; i < 4; i++) {
         scanf("%s", players[i].name);
     }
     printf("The 4 players are confirmed.\n");
@@ -57,8 +57,8 @@ int main(int argc, char *argv[])
     }
     
     // Shows the corresponding scores for each player
-    void show_results(player *players){
-        for(int i = 0; i <= 4; i++){
+    void show_results(player *players) {
+        for(int i = 0; i <= 4; i++) {
             printf("Name: %s\tScore:%d\n", players[i].name, players[i].score);
         }
     }
@@ -86,8 +86,8 @@ int main(int argc, char *argv[])
 
         category = (char *) calloc(BUFFER_LEN, sizeof(char));
 
-        while(num_of_questions_left > 0){
-            for(int i =0; i < sizeof(players); i++){
+        while(num_of_questions_left > 0) {
+            for(int i =0; i < sizeof(players); i++) {
                 printf("It is %s's turn.\nPlease choose from the provided categories and the available amounts left.\n(Protocol: input category, hit enter, input dollar amount, hit enter):\n", players[i].name);
 
                 display_categories();
@@ -97,11 +97,11 @@ int main(int argc, char *argv[])
                 scanf("%d", value);
                 printf("\n");
 
-                if(already_answered(category, value)){
+                if(already_answered(category, value)) {
                     printf("Invalid question. Please choose another.");
                     i--;
                 }
-                else{
+                else {
                     display_question(category, value);
                     scanf("%s", reply);
 
@@ -122,11 +122,9 @@ int main(int argc, char *argv[])
                     }
                 }                
             }
-            free(category);
         }
 
         // Display the final results and exit
         show_results(players);
-        return EXIT_SUCCESS;
     }
 }
