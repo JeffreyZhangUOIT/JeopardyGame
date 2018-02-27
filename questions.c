@@ -99,14 +99,14 @@ void display_categories(void)
 	// formatting to make it look nice
 	printf("   programming  |   algorithms  |   databases   \n");
 	printf("  -------------------------------------------------\n");
-	printf("      %s      |     %s     |         %s   \n", val[0], val[1],val[2]);
+	printf("      %s      |     %s     |         %s   \n", val[0], val[4], val[8]);
 	printf("  -------------------------------------------------\n");
-	printf("      %s      |     %s     |         %s   \n", val[3], val[4], val[5]);
+	printf("      %s      |     %s     |         %s   \n", val[1], val[5], val[9]);
 	printf("  -------------------------------------------------\n");
-	printf("      %s      |     %s     |         %s   \n", val[6], val[7], val[8]);
+	printf("      %s      |     %s     |         %s   \n", val[2], val[6], val[10]);
 	printf("  -------------------------------------------------\n");
-	printf("      %s      |     %s     |         %s   \n", val[9], val[10], val[11]);
-	printf("  -------------------------------------------------\n");
+	printf("      %s      |     %s     |         %s   \n", val[3], val[7], val[11]);
+	printf("  -------------------------------------------------");
 }
 	      
 // Displays question and its corresponding point value

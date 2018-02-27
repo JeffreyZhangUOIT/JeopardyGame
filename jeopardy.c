@@ -56,75 +56,75 @@ int main(void)
         game_on(token, players);
         return 0;
     }
-    
-    // Shows the corresponding scores for each player
-    void show_results(player *players) {
-        for(int i = 0; i <= 4; i++) {
-            printf("Name: %s\tScore:%d\n", players[i].name, players[i].score);
-        }
+}
+
+// Shows the corresponding scores for each player
+void show_results(player *players) {
+    for(int i = 0; i <= 4; i++) {
+        printf("Name: %s\tScore:%d\n", players[i].name, players[i].score);
     }
+}
+
+// tokenizer
+void tokenize(char *input, char **tokens){
+
+    char *first_token = strtok(input, " ");
+    first_token = strtok(input, " ");
+
+    for(int i = 0; first_token != NULL; i++){
+        strcpy(tokens[i], first_token);
+        first_token = strtok(NULL, " ");
+    }       
+}
     
-    // tokenizer
-    void tokenize(char *input, char **tokens){
+// structures how the game is run
+void game_on(char **token, player *players){
+    // All questions must be answered to end game
+    int num_of_questions_left = sizeof(questions);
+    bool correct;
+    char *category;  
+    int value;
+    char reply[BUFFER_LEN] = {0};
 
-        char *first_token = strtok(input, " ");
-        first_token = strtok(input, " ");
+    category = (char *) calloc(BUFFER_LEN, sizeof(char));
 
-        for(int i = 0; first_token != NULL; i++){
-            strcpy(tokens[i], first_token);
-            first_token = strtok(NULL, " ");
-        }       
-    }
-    
-    // structures how the game is run
-    void game_on(char **token, player *players){
-        // All questions must be answered to end game
-        int num_of_questions_left = sizeof(questions);
-        bool correct;
-        char *category;  
-        int value;
-        char reply[BUFFER_LEN] = {0};
+    while(num_of_questions_left > 0) {
+        for(int i = 0; i < 4; i++) {
+            printf("It is %s's turn.\nPlease choose from the provided categories and the available amounts left.\n(Protocol: input category, hit enter, input dollar amount, hit enter):\n", players[i].name);
 
-        category = (char *) calloc(BUFFER_LEN, sizeof(char));
+            display_categories();
 
-        while(num_of_questions_left > 0) {
-            for(int i = 0; i < 4; i++) {
-                printf("It is %s's turn.\nPlease choose from the provided categories and the available amounts left.\n(Protocol: input category, hit enter, input dollar amount, hit enter):\n", players[i].name);
+            printf("\n");
+            scanf("%s", category);
+            scanf("%d", &value);
+            printf("\n");
 
-                display_categories();
+            if(already_answered(category, value)) {
+                printf("Invalid question. Please choose another.\n");
+                i--;
+            }
+            else {
+                display_question(category, value);
+                scanf("%s", reply);
 
-                printf("\n\n");
-                scanf("%s", category);
-                scanf("%d", &value);
-                printf("\n");
-
-                if(already_answered(category, value)) {
-                    printf("Invalid question. Please choose another.");
+                tokenize(reply, token);
+                correct = valid_answer(category, value, token[2]);
+                if(correct){
+                    printf("Correct! Choose the next question.\n\n");
+                    players[i].score += value;
                     i--;
                 }
-                else {
-                    display_question(category, value);
-                    scanf("%s", reply);
-
-                    tokenize(reply, token);
-                    correct = valid_answer(category, value, token[2]);
-                    if(correct){
-                        printf("Correct! Choose the next question.\n\n");
-                        players[i].score += value;
-                        i--;
-                    }
-                    else{
-                        printf("Incorrect! You may have forgotten to answer in question format \"What is or Who is\".\n\n");
-                    }
-                    num_of_questions_left--;
-                    if(num_of_questions_left<=0){
-                        break;
-                    }
-                }                
-            }
+                else{
+                    printf("Incorrect!\n");
+                }
+                num_of_questions_left--;
+                if(num_of_questions_left<=0){
+                    break;
+                }
+            }                
         }
-
-        // Display the final results and exit
-        show_results(players);
     }
+
+    // Display the final results and exit
+    show_results(players);
 }
