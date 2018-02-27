@@ -46,7 +46,7 @@ question[7] = { "algorithms", "", "", 400, false };
 question[8] = { "databases", "", "", 100, false };
 question[9] = { "databases", "", "", 200, false };
 question[10] = { "databases", "", "", 300, false };
-question[10] = { "databases", "", "", 400, false };
+question[11] = { "databases", "", "", 400, false };
 
 // Initializes the array of questions for the game
 extern void initialize_game(void);
