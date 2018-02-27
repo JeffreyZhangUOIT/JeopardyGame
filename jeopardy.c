@@ -83,7 +83,7 @@ void game_on(char **token, player *players){
     int num_of_questions_left = sizeof(questions);
     bool correct;
     char *category;  
-    int value;
+    int value = 0;
     char reply[BUFFER_LEN] = {0};
 
     category = (char *) calloc(BUFFER_LEN, sizeof(char));
