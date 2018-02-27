@@ -77,7 +77,7 @@ int main(int argc, char *argv[])
     
     // structures how the game is run
     void run(char **token, player *players){
-        // All questions must be answered to end
+        // All questions must be answered to end game
         int num_of_questions_left = sizeof(questions);
         bool correct;
         char *category;  
@@ -105,7 +105,7 @@ int main(int argc, char *argv[])
                     display_question(category, value);
                     scanf("%s", reply);
 
-                    tokenize(response, token);
+                    tokenize(reply, token);
                     correct = valid_answer(category, value, token[2]);
                     if(correct){
                         printf("Correct! Choose the next question.\n\n");

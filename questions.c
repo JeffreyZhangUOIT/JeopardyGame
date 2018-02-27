@@ -1,90 +1,89 @@
 // Global char* question and answer. Messy but will get the job done.
 #include <stdio.h>
-char* question, answer;
+#include <stdlib.h>
+#include <string.h>
+#include "questions.h"
 
-// Grabs question. Returns error or the question itself as a char*.
-char* getQuestion(char* category, char* value) {
-	FILE* fp;
-	char* line;
-	line = malloc(100 * sizeof(char));
-	fp = fopen("questions.txt", "r");
-
-	while (fgets(line, 100, fp) != EOF) {
-		char* token;
-		token = strtok(line, ";.");
-		if (strcmp(category, token) == 0)
-		{
-			token = strtok(NULL, ";.");
-			if (strcmp(value, token))
-			{
-				token = strtok(NULL, ";.");
-			}
-		}
-		question = strcpy(question, token);
-		token = strtok(NULL, ";.");
-		answer = strcpy(answer, token);
-		free(line);
-		fclose(fp);
-		return question;
-	}
-	
-	free(line);
-	fclose(fp);
-	return "ERROR: No such question." ;
-}
-
-// Returns 1 if the playerAnswer is equivalent to the answer. 
-// Do not need to add "who is..." or "what is..." to actual answer. Supports multiword answers.
-int checkAnswer(char* playerAnswer) {
-	char* token1, token2;
-	token1 = strok(answer, " ");
-	token2 = strok(playerAnswer, " ");
-	while (token2 != NULL) {
-		if (strcmp(token1, token2) == 0) {
-			token1 = strok(NULL, " ");
-		}
-		token2 = strtok(NULL, " ");
-	}
-	
-	if (strcmp(token1, NULL) == 0) {
-		return 1;
-	}
-	else {
-		return 0;
-	}
-}
-
-// Ditto.
-char* getAnswer() {
-	return answer;
-}
-
+// initializes categories, answers, answered, point value
 void initialize_game(void)
 {
-	strcpy(questions[0].question, getQuestion(programming, 100);
-	strcpy(questions[0].answer, getAnswer());
-	strcpy(questions[1].question, getQuestion(programming, 200);
-	strcpy(questions[1].answer, getAnswer());
-	strcpy(questions[2].question, getQuestion(programming, 300);
-	strcpy(questions[2].answer, getAnswer());
-	strcpy(questions[3].question, getQuestion(programming, 400);
-	strcpy(questions[3].answer, getAnswer());
-	strcpy(questions[4].question, getQuestion(programming, 100);
-	strcpy(questions[4].answer, getAnswer());
-	strcpy(questions[5].question, getQuestion(programming, 200);
-	strcpy(questions[5].answer, getAnswer());
-	strcpy(questions[6].question, getQuestion(programming, 300);
-	strcpy(questions[6].answer, getAnswer());
-	strcpy(questions[7].question, getQuestion(programming, 400);
-	strcpy(questions[7].answer, getAnswer());
-	strcpy(questions[8].question, getQuestion(programming, 100);
-	strcpy(questions[8].answer, getAnswer());
-	strcpy(questions[9].question, getQuestion(programming, 200);
-	strcpy(questions[9].answer, getAnswer());
-	strcpy(questions[10].question, getQuestion(programming, 300);
-	strcpy(questions[10].answer, getAnswer());
-	strcpy(questions[11].question, getQuestion(programming, 400);
-	strcpy(questions[11].answer, getAnswer());
+	strcpy(questions[0].category, "programming");
+	strcpy(questions[0].question, "A loop that never ends is referred to as a(n)");
+	strcpy(questions[0].answer, "Infinite loop");
+	questions[0].value = 100;
+	questions[0].answered = false;
+
+	strcpy(questions[1].category, "programming");
+	strcpy(questions[1].question, "What is the most basic language Microsoft made? Visual Basic, DirectX, Batch, C++, .Net namespace");
+	strcpy(questions[1].answer, "Visual Basic");
+	questions[1].value = 200;
+	questions[1].answered = false;
+
+	strcpy(questions[2].category, "programming");
+	strcpy(questions[2].question, "What is the most complicated language? Actionscript, C, C#, .NET, C++, Python");
+	strcpy(questions[2].answer, "C++");
+	questions[2].value = 300;
+	questions[2].answered = false;
+
+	strcpy(questions[3].category, "programming");
+	strcpy(questions[3].question, "You have just constructed your first for loop within the Java Language. Which of the following is not a required part of a for loop? Initialization, Condition, Variable, Increment");
+	strcpy(questions[3].answer, "Variable");
+	questions[3].value = 400;
+	questions[3].answered = false;
+
+
+
+
+	strcpy(questions[4].category, "algorithms");
+	strcpy(questions[4].question, "Stacks are also known as which type of structures");
+	strcpy(questions[4].answer, "LIFO");
+	questions[4].value = 100;
+	questions[4].answered = false;
+
+	strcpy(questions[5].category, "algorithms");
+	strcpy(questions[5].question, "Which of the following is/are levels of implementation of data structures? Abstract level, Application level, Implementation level, All of the above");
+	strcpy(questions[5].answer, "All of the above");
+	questions[5].value = 200;
+	questions[5].answered = false;
+
+	strcpy(questions[6].category, "algorithms");
+	strcpy(questions[6].question, "Which level is where the model becomes compatible executable code? Abstract level, Application level, Implementation level");
+	strcpy(questions[6].answer, "Implementation level");
+	questions[6].value = 300;
+	questions[6].answered = false;
+
+	strcpy(questions[7].category, "algorithms");
+	strcpy(questions[7].question, "A binary search tree whose left subtree and right subtree differ in height by at most 1 unit is called ____ AVL tree, Red-black tree, Lemma tree, None of the above");
+	strcpy(questions[7].answer, "AVL tree");
+	questions[7].value = 400;
+	questions[7].answered = false;
+
+
+
+
+	strcpy(questions[8].category, "databases");
+	strcpy(questions[8].question, "A method defines the form or protocol of the operation, but not its implementation. True, False");
+	strcpy(questions[8].answer, "False");
+	questions[8].value = 100;
+	questions[8].answered = false;
+
+	strcpy(questions[9].category, "databases");
+	strcpy(questions[9].question, "The DBMS acts as an interface between what two components of an enterprise-class database system? Database application and the database, Data and the database, The user and the database application, Database application and SQL");
+	strcpy(questions[9].answer, "Database application and the database");
+	questions[9].value = 200;
+	questions[9].answered = false;
+
+	strcpy(questions[10].category, "databases");
+	strcpy(questions[10].question, "The following are components of a database except ________ . User data, metadata, reports, indexes");
+	strcpy(questions[10].answer, "Reports");
+	questions[10].value = 300;
+	questions[10].answered = false;
+
+	strcpy(questions[11].category, "databases");
+	strcpy(questions[11].question, "The fact that the same operation may apply to two or more classes is called what? Inheritance, Polymorphism, Encapsulation, Multiple classification");
+	strcpy(questions[11].answer, "Polymorphism");
+	questions[11].value = 400;
+	questions[11].answered = false;
 }
 	       
 // display remaining questions and corresponding values
