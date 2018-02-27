@@ -108,7 +108,17 @@ void display_categories(void)
 	printf("      %s      |     %s     |         %s   \n", val[3], val[7], val[11]);
 	printf("  -------------------------------------------------");
 }
-	      
+
+// Check if the input is valid.	      
+bool valid_input(char *category, int value){
+	bool valid = false;
+	for (int i = 0; i < 12; i++) {
+		if ((questions[i].category == category) && (questions[i].value == value)) {
+			valid = true;
+		}
+	}
+	return valid;
+}
 // Displays question and its corresponding point value
 void display_question(char *category, int value)
 {

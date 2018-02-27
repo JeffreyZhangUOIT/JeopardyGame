@@ -35,6 +35,9 @@ extern void initialize_game(void);
 // Displays each of the remaining categories and question dollar values that have not been answered
 extern void display_categories(void);
 
+// Check if the input is valid.
+extern bool valid_input(char *category, int value);
+
 // Displays the question for the category and dollar value
 extern void display_question(char *category, int value);
 

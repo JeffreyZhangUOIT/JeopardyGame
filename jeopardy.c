@@ -100,10 +100,10 @@ void game_on(char **token, player *players){
         // printf("\n");
 
         if(already_answered(category, value)) {
-            printf("Invalid question. Please choose another.\n");
+            printf("Already answered. Please choose another.\n");
             
         }
-        else 
+        else if (valid_input(category, value))
         {
             display_question(category, value);
             scanf("%s", reply);
@@ -126,6 +126,10 @@ void game_on(char **token, player *players){
             {
                 break;
             }
+        }
+        else 
+        {
+            printf("Invalid question. Please choose another.\n");
         } 
 
         
