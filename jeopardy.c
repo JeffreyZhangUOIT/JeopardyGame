@@ -90,23 +90,23 @@ int main(int argc, char *argv[])
             for(int i =0; i < sizeof(players); i++){
                 printf("It is %s's turn.\nPlease choose from the provided categories and the available amounts left.\n(Protocol: input category, hit enter, input dollar amount, hit enter):\n", players[i].name);
 
-                output_categories();
+                display_categories();
 
                 printf("\n\n");
                 scanf("%s", category);
                 scanf("%d", value);
                 printf("\n");
 
-                if(unavailable(category, value)){
+                if(already_answered(category, value)){
                     printf("Invalid question. Please choose another.");
                     i--;
                 }
                 else{
-                    output_question(category, value);
+                    display_question(category, value);
                     scanf("%s", reply);
 
                     tokenize(response, token);
-                    correct = verified_answer(category, value, token[2]);
+                    correct = valid_answer(category, value, token[2]);
                     if(correct){
                         printf("Correct! Choose the next question.\n\n");
                         players[i].score += value;
