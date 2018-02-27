@@ -35,6 +35,18 @@ typedef struct {
 // An array of 12 questions (4 for each category), initialized in initialize_game
 // this may need to be a pointer if you want it set dynamically
 question questions[NUM_QUESTIONS];
+question[0] = { "programming", "", "", 100, false };
+question[1] = { "programming", "", "", 200, false };
+question[2] = { "programming", "", "", 300, false };
+question[3] = { "programming", "", "", 400, false };
+question[4] = { "algorithms", "", "", 100, false };
+question[5] = { "algorithms", "", "", 200, false };
+question[6] = { "algorithms", "", "", 300, false };
+question[7] = { "algorithms", "", "", 400, false };
+question[8] = { "databases", "", "", 100, false };
+question[9] = { "databases", "", "", 200, false };
+question[10] = { "databases", "", "", 300, false };
+question[11] = { "databases", "", "", 400, false };
 
 // Initializes the array of questions for the game
 extern void initialize_game(void);
