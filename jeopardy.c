@@ -85,44 +85,50 @@ void game_on(char **token, player *players){
     char *category;  
     int value = 0;
     char reply[BUFFER_LEN] = {0};
-
+    int i =0;
     category = (char *) calloc(BUFFER_LEN, sizeof(char));
 
     while(num_of_questions_left > 0) {
-        for(int i = 0; i < 4; i++) {
-            printf("It is %s's turn.\nPlease choose from the provided categories and the available amounts left.\n(Protocol: input category, hit enter, input dollar amount, hit enter):\n", players[i].name);
+        printf("It is %s's turn.\nPlease choose from the provided categories and the available amounts left.\n(Protocol: [category] ENTER [value] ENTER):\n", players[i].name);
 
-            display_categories();
+        display_categories();
 
-            printf("\n");
-            scanf("%s", category);
-            scanf("%d", &value);
-            printf("\n");
+        printf("\n");
+        scanf("%s", category);
+        scanf("%d", &value);
+        printf("You have chosen: %s %d.\n", category, value);
+        // printf("\n");
 
-            if(already_answered(category, value)) {
-                printf("Invalid question. Please choose another.\n");
-                i--;
-            }
-            else {
-                display_question(category, value);
-                scanf("%s", reply);
-
-                tokenize(reply, token);
-                correct = valid_answer(category, value, token[2]);
-                if(correct){
-                    printf("Correct! Choose the next question.\n\n");
-                    players[i].score += value;
-                    i--;
-                }
-                else{
-                    printf("Incorrect!\n");
-                }
-                num_of_questions_left--;
-                if(num_of_questions_left<=0){
-                    break;
-                }
-            }                
+        if(already_answered(category, value)) {
+            printf("Invalid question. Please choose another.\n");
+            
         }
+        else 
+        {
+            display_question(category, value);
+            scanf("%s", reply);
+
+            //tokenize(reply, token);
+            correct = valid_answer(category, value, reply);
+            if(correct){
+                question_answered(category, value);
+                printf("Correct! Choose the next question.\n\n");
+                players[i].score += value;
+            }
+            else{
+                printf("Incorrect!\n");
+                i++;
+            }
+
+            fflush(stdin);
+            num_of_questions_left--;
+            if(num_of_questions_left<=0)
+            {
+                break;
+            }
+        } 
+
+        
     }
 
     // Display the final results and exit

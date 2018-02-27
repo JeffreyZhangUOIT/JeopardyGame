@@ -9,7 +9,7 @@ void initialize_game(void)
 {
 	strcpy(questions[0].category, "programming");
 	strcpy(questions[0].question, "A loop that never ends is referred to as a(n)");
-	strcpy(questions[0].answer, "Infinite loop");
+	strcpy(questions[0].answer, "infinite loop");
 	questions[0].value = 100;
 	questions[0].answered = false;
 
@@ -21,7 +21,7 @@ void initialize_game(void)
 
 	strcpy(questions[2].category, "programming");
 	strcpy(questions[2].question, "What is the most complicated language? Actionscript, C, C#, .NET, C++, Python");
-	strcpy(questions[2].answer, "C++");
+	strcpy(questions[2].answer, "c++");
 	questions[2].value = 300;
 	questions[2].answered = false;
 
@@ -92,7 +92,7 @@ void display_categories(void)
 			snprintf(val[i], 20, "%d", questions[i].value);
 		} 
 		else {
-			strcpy(val[i], "   ");
+			strcpy(val[i], " A ");
 		}
 	}
 	
@@ -113,7 +113,8 @@ void display_categories(void)
 void display_question(char *category, int value)
 {
 	for (int i = 0; i < 12; i++) {
-		if ((questions[i].category == category) && (questions[i].value == value)) {
+		if ((strcmp(category, questions[i].category) == 0) && (value == questions[i].value))
+		{
 			printf("Question: %s (%d)\n", questions[i].question, questions[i].value);
 		}
 	}
@@ -125,9 +126,24 @@ bool valid_answer(char *category, int value, char *answer)
 	bool valid;
 	for (int i = 0; i < 12; i++) {
 		if ((questions[i].category == category) && (questions[i].value == value)) {
-			if (strcmp(questions[i].answer, answer) == 0) {
+			char* token1, token2;
+			token1 = strtok(answer, " ");
+			token2 = strtok(questions[i].answer, " ");
+
+			while (token1 != NULL) {
+				if (strcmp(token1, token2) == 0) {
+					token1 = strtok(NULL, " ");
+					token2 = strtok(NULL, " ");
+				}
+				else{
+					token1 = strtok(NULL, " ");
+				}
+			}
+				
+			
+			if (strcmp(token2, NULL) == 0){
 				valid = true;
-			} 
+			}
 			else {
 				valid = false;
 			}
@@ -139,9 +155,9 @@ bool valid_answer(char *category, int value, char *answer)
 // Returns true if the question has already been answered
 bool already_answered(char *category, int value)
 {
-	bool answered;
+	bool answered = false;
 	for (int i = 0; i < 12; i++) {
-		if ((questions[i].category == category) && (questions[i].value == value)) {
+		if ((strcmp(category, questions[i].category) == 0) && (value == questions[i].value)) {
 			if (questions[i].answered == true) {
 				answered = true;
 			}
@@ -157,7 +173,7 @@ bool already_answered(char *category, int value)
 void question_answered(char *category, int value)
 {
 	for (int i = 0; i < 12; i++) {
-		if ((questions[i].category == category) && (questions[i].value == value)) {
+		if ((strcmp(category, questions[i].category) == 0)  && (questions[i].value == value)) {
 			questions[i].answered = true;
 		}
 	}
