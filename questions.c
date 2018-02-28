@@ -113,7 +113,7 @@ void display_categories(void)
 bool valid_input(char *category, int value){
 	bool valid = false;
 	for (int i = 0; i < 12; i++) {
-		if ((questions[i].category == category) && (questions[i].value == value)) {
+		if ((strcmp(category, questions[i].category) == 0) && (questions[i].value == value)) {
 			valid = true;
 		}
 	}
